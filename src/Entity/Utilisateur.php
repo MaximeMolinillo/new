@@ -6,10 +6,12 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -41,8 +43,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $localisation_potager = null;
 
-    #[ORM\Column]
-    private ?bool $role = null;
+    // #[ORM\Column]
+    // private ?bool $role = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Log::class)]
     private Collection $logs;
@@ -186,17 +188,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isRole(): ?bool
-    {
-        return $this->role;
-    }
+    // public function isRole(): ?bool
+    // {
+    //     return $this->role;
+    // }
 
-    public function setRole(bool $role): static
-    {
-        $this->role = $role;
+    // public function setRole(bool $role): static
+    // {
+    //     $this->role = $role;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Log>

@@ -43,6 +43,9 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'Article')]
     private ?Utilisateur $utilisateur = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frise_chronologique = null;
+
     public function __construct()
     {
         $this->avis_article = new ArrayCollection();
@@ -175,6 +178,18 @@ class Article
     public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getFriseChronologique(): ?string
+    {
+        return $this->frise_chronologique;
+    }
+
+    public function setFriseChronologique(?string $frise_chronologique): static
+    {
+        $this->frise_chronologique = $frise_chronologique;
 
         return $this;
     }
